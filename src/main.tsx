@@ -4,7 +4,7 @@ import './index.css'
 import LuckyWheel1 from './components/LuckyWheel1'
 import LuckyWheel2 from './components/LuckyWheel2'
 import LuckyWheel3 from './components/LuckyWheel3'
-// import LuckyWheel4 from './components/LuckyWheel4'
+import LuckyWheel4 from './components/LuckyWheel4'
 
 const rootElement = document.getElementById('root')
 
@@ -26,7 +26,7 @@ function App() {
       case 'wheel3':
         return <LuckyWheel3 />
       case 'wheel4':
-        return <LuckyWheel3 />
+        return <LuckyWheel4 />
       default:
         return <LuckyWheel1 />
     }
