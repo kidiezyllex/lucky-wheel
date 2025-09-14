@@ -218,7 +218,7 @@ export default function LuckyWheelIcon() {
                 draggable={false}
                 src="/images/arrow2.webp"
                 alt="Spin Arrow"
-                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-1 sm:-translate-y-2`}
+                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-1`}
               />
             </button>
           </div>

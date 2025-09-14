@@ -130,7 +130,6 @@ export default function LuckyWheelIcon() {
                   transition: isSpinning ? `transform ${spinDuration}ms cubic-bezier(0.17, 0.67, 0.12, 0.99)` : "none",
                 }}
               >
-                {/* Background sectors */}
                 {Array.from({ length: 8 }).map((_, index) => {
                   const startAngle = index * 45
                   const endAngle = (index + 1) * 45
@@ -174,12 +173,15 @@ export default function LuckyWheelIcon() {
                 }}
               >
                 {Array.from({ length: 8 }).map((_, index) => {
-                  const angle = index * 45 + 22.5 // 22.5度是45度的一半，让图标位于扇形中心
-                  const containerSize = window.innerWidth < 640 ? 260 : 290
-                  const svgSize = 320 // SVG viewBox 尺寸
-                  const radius = (containerSize / svgSize) * 95 // 进一步调整半径，确保图标在扇形中心
+                  const angle = index * 45 + 22.5
                   
-                  const iconPosition = polarToCartesian(160, 160, radius, angle)
+                  const containerSize = window.innerWidth < 640 ? 260 : 290
+                  const centerX = containerSize / 2
+                  const centerY = containerSize / 2
+                  
+                  const radius = containerSize * 0.3
+                  
+                  const iconPosition = polarToCartesian(centerX, centerY, radius, angle)
                   
                   return (
                     <div
@@ -218,7 +220,7 @@ export default function LuckyWheelIcon() {
                 draggable={false}
                 src="/images/arrow3.webp"
                 alt="Spin Arrow"
-                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-1 sm:-translate-y-2`}
+                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-1 sm:-translate-y-1.5`}
               />
             </button>
           </div>
@@ -256,7 +258,7 @@ export default function LuckyWheelIcon() {
               style={{ background: "linear-gradient(135deg, #F73E5F 0%, #F17ADF 50%, #FFD29D 100%)" }}
             >
               <div className="mb-3 sm:mb-4">
-                <h3 className="text-black text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
+                <h3 className="text-white text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
                   className="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full flex items-center justify-center shadow-lg"
                   style={{ background: "linear-gradient(135deg, #FFD29D 0%, #F17ADF 50%, #FFD29D 100%)" }}
@@ -271,8 +273,8 @@ export default function LuckyWheelIcon() {
               </div>
 
               <div className="mb-4 sm:mb-6">
-                <h4 className="text-black text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
-                <p className="text-black text-xs sm:text-sm leading-relaxed px-2">
+                <h4 className="text-white text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
+                <p className="text-white text-xs sm:text-sm leading-relaxed px-2">
                   You've won this amazing prize! Good luck and enjoy your reward.
                 </p>
               </div>

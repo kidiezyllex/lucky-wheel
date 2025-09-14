@@ -120,7 +120,7 @@ export default function LuckyWheelIcon() {
                 marginTop: window.innerWidth < 640 ? "-160px" : "-192px",
               }}
             />
-            <div className="relative w-[260px] h-[260px] sm:w-[310px] sm:h-[310px] z-10">
+            <div className="relative w-[260px] h-[260px] sm:w-[345px] sm:h-[345px] z-10">
               <svg
                 className="w-full h-full absolute"
                 viewBox="0 0 320 320"
@@ -149,7 +149,7 @@ export default function LuckyWheelIcon() {
                     ].join(" ")
                   }
 
-                  const colors = ["#B366FF", "#FFCC5A", "#7500FF", "#FFB800"]
+                  const colors = ["#00C7F9", "#FFC004", "#FFCFC2", "#FF69C7"]
                   const colorIndex = index % 4
 
                   return (
@@ -157,7 +157,7 @@ export default function LuckyWheelIcon() {
                       key={`sector-${index}`}
                       d={createSectorPath(startAngle, endAngle, radius)}
                       fill={colors[colorIndex]}
-                      stroke="#3604B7"
+                      stroke="transparent"
                       strokeWidth="1"
                       className="pointer-events-none"
                     />
@@ -174,10 +174,15 @@ export default function LuckyWheelIcon() {
                 }}
               >
                 {Array.from({ length: 8 }).map((_, index) => {
-                  const angle = index * 45 + 22.5 // 22.5度是45度的一半，让图标位于扇形中心
-                  const radius = 100 // 调整半径，让图标更靠近中心
+                  const angle = index * 45 + 22.5
                   
-                  const iconPosition = polarToCartesian(160, 160, radius, angle)
+                  const containerSize = window.innerWidth < 640 ? 260 : 345
+                  const centerX = containerSize / 2
+                  const centerY = containerSize / 2
+                  
+                  const radius = containerSize * 0.3
+                  
+                  const iconPosition = polarToCartesian(centerX, centerY, radius, angle)
                   
                   return (
                     <div
@@ -206,7 +211,7 @@ export default function LuckyWheelIcon() {
             <button
               onClick={handleSpin}
               disabled={isSpinning}
-              className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 transition-all duration-200 ${isSpinning
+              className={`absolute top-6 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 transition-all duration-200 ${isSpinning
                 ? "scale-95 cursor-not-allowed pointer-events-none"
                 : "hover:scale-110 active:scale-95 cursor-pointer"
                 }`}
@@ -240,7 +245,7 @@ export default function LuckyWheelIcon() {
                   style={{
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 50}%`,
-                    backgroundColor: i % 2 === 0 ? "#7500FF" : "#FFCC59",
+                    backgroundColor: i % 2 === 0 ? "#00C7F9" : "#FFC004",
                     animationDelay: `${Math.random() * 2}s`,
                     animationDuration: `${2 + Math.random() * 2}s`,
                   }}
@@ -251,17 +256,17 @@ export default function LuckyWheelIcon() {
             {/* Result Card */}
             <div
               className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-purple-400/30"
-              style={{ background: "linear-gradient(135deg, #7500FF 0%, #5A00CC 50%, #7500FF 100%)" }}
+              style={{ background: "linear-gradient(135deg, #00C7F9 0%, #FFC004 50%, #FF69C7 100%)" }}
             >
               <div className="mb-3 sm:mb-4">
-                <h3 className="text-white text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
+                <h3 className="text-black text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
                   className="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full flex items-center justify-center shadow-lg"
-                  style={{ background: "linear-gradient(135deg, #FFCC59 0%, #FFB800 50%, #FFCC59 100%)" }}
+                  style={{ background: "linear-gradient(135deg, #FFCFC2 0%, #FF69C7 50%, #FFCFC2 100%)" }}
                 >
                   <div
                     className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight"
-                    style={{ color: "#7500FF", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
+                    style={{ color: "#00C7F9", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                   >
                     <img src={result} alt="Icon" className="w-10 h-10 sm:w-14 sm:h-14 object-contain" />
                   </div>
@@ -269,8 +274,8 @@ export default function LuckyWheelIcon() {
               </div>
 
               <div className="mb-4 sm:mb-6">
-                <h4 className="text-white text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
-                <p className="text-purple-100 text-xs sm:text-sm leading-relaxed px-2">
+                <h4 className="text-black text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
+                <p className="text-black text-xs sm:text-sm leading-relaxed px-2">
                   You've won this amazing prize! Good luck and enjoy your reward.
                 </p>
               </div>
@@ -279,8 +284,8 @@ export default function LuckyWheelIcon() {
                 onClick={closeResult}
                 className="w-full text-white font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
                 style={{
-                  background: "linear-gradient(135deg, #FFCC59 0%, #FFB800 100%)",
-                  color: "#7500FF",
+                  background: "linear-gradient(135deg, #FFC004 0%, #FF69C7 100%)",
+                  color: "#00C7F9",
                 }}
               >
                 Continue

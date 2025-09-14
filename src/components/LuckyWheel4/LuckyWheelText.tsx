@@ -106,7 +106,7 @@ export default function LuckyWheelText() {
               className="absolute select-none w-80 h-80 sm:w-96 sm:h-96 object-contain bg-transparent z-0" 
               draggable={false}
             />
-            <div className="relative w-[260px] h-[260px] sm:w-[310px] sm:h-[310px] z-10">
+            <div className="relative w-[260px] h-[260px] sm:w-[345px] sm:h-[345px] z-10">
               <svg
                 className="w-full h-full"
                 viewBox="0 0 320 320"
@@ -135,7 +135,7 @@ export default function LuckyWheelText() {
                     ].join(" ")
                   }
 
-                  const colors = ["#B366FF", "#FFCC5A", "#7500FF", "#FFB800"]
+                  const colors = ["#00C7F9", "#FFC004", "#FFCFC2", "#FF69C7"]
                   
                   let colorIndex = index % 4
                   
@@ -160,7 +160,7 @@ export default function LuckyWheelText() {
                       key={`sector-${index}`}
                       d={createSectorPath(startAngle, endAngle, radius)}
                       fill={colors[colorIndex]}
-                      stroke="#3604B7"
+                      stroke="transparent"
                       strokeWidth="1"
                       className="pointer-events-none"
                     />
@@ -217,11 +217,11 @@ export default function LuckyWheelText() {
                         y={textPosition.y}
                         textAnchor="middle"
                         dominantBaseline="middle"
-                        className="text-white font-bold text-xs sm:text-sm pointer-events-none select-none"
+                        className="text-black font-bold text-xs sm:text-sm pointer-events-none select-none"
                         style={{
                           fontSize: window.innerWidth < 640 ? '9px' : '11px',
                           textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
-                          fill: 'white'
+                          fill: 'black'
                         }}
                       >
                         {displayText.split('\n').map((line, lineIndex) => (
@@ -244,7 +244,7 @@ export default function LuckyWheelText() {
             <button
               onClick={handleSpin}
               disabled={isSpinning}
-              className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 transition-all duration-200 ${isSpinning
+              className={`absolute top-6 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 transition-all duration-200 ${isSpinning
                 ? "scale-95 cursor-not-allowed pointer-events-none"
                 : "hover:scale-110 active:scale-95 cursor-pointer"
                 }`}
@@ -277,7 +277,7 @@ export default function LuckyWheelText() {
                   style={{
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 50}%`,
-                    backgroundColor: i % 2 === 0 ? "#7500FF" : "#FFCC59",
+                    backgroundColor: i % 2 === 0 ? "#00C7F9" : "#FFC004",
                     animationDelay: `${Math.random() * 2}s`,
                     animationDuration: `${2 + Math.random() * 2}s`,
                   }}
@@ -288,16 +288,16 @@ export default function LuckyWheelText() {
             {/* Result Card */}
             <div
               className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-purple-400/30"
-              style={{ background: "linear-gradient(135deg, #7500FF 0%, #5A00CC 50%, #7500FF 100%)" }}
+              style={{ background: "linear-gradient(135deg, #00C7F9 0%, #FFC004 50%, #FF69C7 100%)" }}
             >
               <div className="mb-3 sm:mb-4">
-                <h3 className="text-white text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
+                <h3 className="text-black text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
                   className="w-full z-50 bg-white mx-auto rounded-lg flex items-center justify-center shadow-lg"
                 >
                   <div
-                    className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight py-1"
-                    style={{ color: "#7500FF", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
+                    className="text-black font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight py-1"
+                    style={{ color: "#00C7F9", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                   >
                     {result}
                   </div>
@@ -305,8 +305,8 @@ export default function LuckyWheelText() {
               </div>
 
               <div className="mb-4 sm:mb-6">
-                <h4 className="text-white text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
-                <p className="text-purple-100 text-xs sm:text-sm leading-relaxed px-2">
+                <h4 className="text-black text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
+                <p className="text-black text-xs sm:text-sm leading-relaxed px-2">
                   You've won this amazing prize! Good luck and enjoy your reward.
                 </p>
               </div>
@@ -315,8 +315,8 @@ export default function LuckyWheelText() {
                 onClick={closeResult}
                 className="w-full text-white font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
                 style={{
-                  background: "linear-gradient(135deg, #FFCC59 0%, #FFB800 100%)",
-                  color: "#7500FF",
+                  background: "linear-gradient(135deg, #00C7F9 0%, #FF69C7 100%)",
+                  color: "#ffffff",
                 }}
               >
                 Continue

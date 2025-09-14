@@ -160,7 +160,7 @@ export default function LuckyWheelText() {
                       key={`sector-${index}`}
                       d={createSectorPath(startAngle, endAngle, radius)}
                       fill={colors[colorIndex]}
-                      stroke="transparent"
+                      stroke="#ffffff"
                       strokeWidth="1"
                       className="pointer-events-none"
                     />
@@ -254,7 +254,7 @@ export default function LuckyWheelText() {
                 draggable={false}
                 src="/images/arrow3.webp"
                 alt="Spin Arrow"
-                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-1 sm:-translate-y-2`}
+                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-1 sm:-translate-y-1.5`}
               />
             </button>
           </div>
