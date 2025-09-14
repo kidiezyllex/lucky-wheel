@@ -284,8 +284,8 @@ export default function LuckyWheelIcon() {
                 onClick={closeResult}
                 className="w-full text-white font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
                 style={{
-                  background: "linear-gradient(135deg, #FFC004 0%, #FF69C7 100%)",
-                  color: "#00C7F9",
+                  background: "linear-gradient(135deg, #00C7F9 0%, #FF69C7 100%)",
+                  color: "#ffffff",
                 }}
               >
                 Continue
