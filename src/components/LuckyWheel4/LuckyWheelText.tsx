@@ -84,7 +84,7 @@ export default function LuckyWheelText() {
               transition: isSpinning ? "transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99)" : "none",
             }}
           >
-            <img src="/images/wheel4.png" alt="Lucky Wheel" className="w-full h-full object-contain bg-transparent rotate-[22.5deg]" draggable={false} />
+            <img src="/images/wheel4.webp" alt="Lucky Wheel" className="w-full h-full object-contain bg-transparent rotate-[22.5deg]" draggable={false} />
             {Array.from({ length: 8 }).map((_, index) => {
               const angle = index * 45
               const radius = 170 
@@ -121,7 +121,7 @@ export default function LuckyWheelText() {
         >
           <img 
             draggable={false}
-            src="/images/arrow4.png" 
+            src="/images/arrow4.webp" 
             alt="Spin Arrow" 
             className={`w-full h-full object-contain drop-shadow-lg transition-all duration-200 -translate-y-1.5 ${
               isSpinning ? "animate-pulse" : ""

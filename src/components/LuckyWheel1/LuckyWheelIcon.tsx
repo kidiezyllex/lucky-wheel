@@ -100,7 +100,7 @@ export default function LuckyWheelIcon() {
               transformOrigin: "center center",
             }}
           >
-            <img src="/images/wheel1.png" alt="Lucky Wheel" className="absolute w-96 h-96 object-contain bg-transparent z-0" draggable={false} />
+            <img src="/images/wheel1.webp" alt="Lucky Wheel" className="absolute w-96 h-96 object-contain bg-transparent z-0" draggable={false} />
             <div className="relative w-[310px] h-[310px] z-10">
               <div
                 className="w-full h-full"
@@ -150,7 +150,7 @@ export default function LuckyWheelIcon() {
             >
               <img
                 draggable={false}
-                src="/images/arrow1.png"
+                src="/images/arrow1.webp"
                 alt="Spin Arrow"
                 className={`w-full h-full object-contain drop-shadow-lg transition-all duration-200 -translate-y-2 ${isSpinning ? "animate-pulse" : ""
                   }`}
