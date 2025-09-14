@@ -117,7 +117,6 @@ export default function LuckyWheelText() {
                   const endAngle = (index + 1) * anglePerItem
                   const radius = 160
 
-                  // Tạo path cho sector
                   const createSectorPath = (startAngle: number, endAngle: number, radius: number) => {
                     const start = polarToCartesian(160, 160, radius, endAngle)
                     const end = polarToCartesian(160, 160, radius, startAngle)
@@ -133,17 +132,14 @@ export default function LuckyWheelText() {
 
                   const colors = ["#B366FF", "#FFCC5A", "#7500FF", "#FFB800"]
                   
-                  // 改进的颜色分配算法：确保相邻扇形不使用相同颜色
                   let colorIndex = index % 4
                   
-                  // 检查是否与相邻扇形颜色相同，如果是则调整
                   if (itemCount > 1) {
                     const prevIndex = (index - 1 + itemCount) % itemCount
                     const nextIndex = (index + 1) % itemCount
                     const prevColorIndex = prevIndex % 4
                     const nextColorIndex = nextIndex % 4
     
-                    // 如果与相邻扇形颜色相同，选择不同的颜色
                     if (colorIndex === prevColorIndex || colorIndex === nextColorIndex) {
                       for (let i = 0; i < 4; i++) {
                         if (i !== prevColorIndex && i !== nextColorIndex) {
@@ -179,28 +175,57 @@ export default function LuckyWheelText() {
                   }
 
                   const originalText = wheelItems[index] || ""
-                  const displayText = originalText.length > 15
-                    ? originalText.substring(0, 12) + "..."
-                    : originalText
-
+                  
+                  const formatTextForDisplay = (text: string) => {
+                    if (!text) return ""
+                    
+                    const words = text.split(/\s+/).filter(word => word.length > 0)
+                    
+                    if (words.length <= 4) {
+                      return text
+                    }
+                    
+                    const firstLine = words.slice(0, 4).join(" ")
+                    const remainingWords = words.slice(4)
+                    
+                    if (remainingWords.length <= 4) {
+                      return firstLine + "\n" + remainingWords.join(" ")
+                    } else {
+                      const secondLine = remainingWords.slice(0, 4).join(" ") + "..."
+                      return firstLine + "\n" + secondLine
+                    }
+                  }
+                  
+                  const displayText = formatTextForDisplay(originalText)
 
                   return (
-                    <text
-                      key={`text-${index}`}
-                      x={textPosition.x}
-                      y={textPosition.y}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      className="text-white font-bold text-xs sm:text-sm pointer-events-none select-none"
-                      style={{
-                        fontSize: window.innerWidth < 640 ? '9px' : '11px',
-                        textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
-                        fill: 'white'
-                      }}
+                    <g
+                      key={`text-group-${index}`}
                       transform={`rotate(${textRotation}, ${textPosition.x}, ${textPosition.y})`}
                     >
-                      {displayText}
-                    </text>
+                      <text
+                        x={textPosition.x}
+                        y={textPosition.y}
+                        textAnchor="middle"
+                        dominantBaseline="middle"
+                        className="text-white font-bold text-xs sm:text-sm pointer-events-none select-none"
+                        style={{
+                          fontSize: window.innerWidth < 640 ? '9px' : '11px',
+                          textShadow: '1px 1px 2px rgba(0,0,0,0.8)',
+                          fill: 'white'
+                        }}
+                      >
+                        {displayText.split('\n').map((line, lineIndex) => (
+                          <tspan
+                            key={lineIndex}
+                            x={textPosition.x}
+                            dy={lineIndex === 0 ? 0 : '1.2em'}
+                          >
+                            {line}
+                          </tspan>
+                        ))}
+                      </text>
+                    </g>
                   )
                 })}
               </svg>
