@@ -174,10 +174,10 @@ export default function LuckyWheelIcon() {
                 }}
               >
                 {Array.from({ length: 8 }).map((_, index) => {
-                  const angle = index * 45 + 22.5 // 22.5度是45度的一半，让图标位于扇形中心
+                  const angle = index * 45 + 22.5 
                   const containerSize = window.innerWidth < 640 ? 260 : 330
-                  const svgSize = 320 // SVG viewBox 尺寸
-                  const radius = (containerSize / svgSize) * 95 // 进一步调整半径，确保图标在扇形中心 
+                  const svgSize = 320
+                  const radius = (containerSize / svgSize) * 95
                   
                   const iconPosition = polarToCartesian(160, 160, radius, angle)
                   

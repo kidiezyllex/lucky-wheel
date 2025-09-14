@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "./ui/button"
 
 interface WheelConfigIcon {
-  wheelSize: number // Scale factor từ 0.5 đến 2.0
+  wheelSize: number 
 }
 
 interface ConfigFormIconProps {
@@ -13,7 +13,7 @@ interface ConfigFormIconProps {
 }
 
 export default function ConfigFormIcon({ onConfigChange, initialConfig }: ConfigFormIconProps) {
-  const [wheelSize, setWheelSize] = useState(1.0) // Scale factor từ 0.5 đến 2.0
+  const [wheelSize, setWheelSize] = useState(1.0) 
 
   useEffect(() => {
     if (initialConfig) {

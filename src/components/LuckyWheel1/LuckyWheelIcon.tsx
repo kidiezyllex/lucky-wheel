@@ -174,8 +174,8 @@ export default function LuckyWheelIcon() {
                 }}
               >
                 {Array.from({ length: 8 }).map((_, index) => {
-                  const angle = index * 45 + 22.5 // 22.5度是45度的一半，让图标位于扇形中心
-                  const radius = 100 // 调整半径，让图标更靠近中心
+                  const angle = index * 45 + 22.5 
+                  const radius = 100 
                   
                   const iconPosition = polarToCartesian(160, 160, radius, angle)
                   

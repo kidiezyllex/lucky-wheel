@@ -5,7 +5,7 @@ import { Button } from "./ui/button"
 
 interface WheelConfig {
   items: string[]
-  wheelSize: number // Scale factor từ 0.5 đến 2.0
+  wheelSize: number
 }
 
 interface ConfigFormProps {
@@ -15,7 +15,7 @@ interface ConfigFormProps {
 
 export default function ConfigForm({ onConfigChange, initialConfig }: ConfigFormProps) {
   const [textInput, setTextInput] = useState("")
-  const [wheelSize, setWheelSize] = useState(1.0) // Scale factor từ 0.5 đến 2.0
+  const [wheelSize, setWheelSize] = useState(1.0)
   const [error, setError] = useState("")
   const [isValid, setIsValid] = useState(false)
 
