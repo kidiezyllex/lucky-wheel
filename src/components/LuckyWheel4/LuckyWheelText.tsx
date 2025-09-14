@@ -287,17 +287,18 @@ export default function LuckyWheelText() {
 
             {/* Result Card */}
             <div
-              className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-purple-400/30"
-              style={{ background: "linear-gradient(135deg, #00C7F9 0%, #FFC004 50%, #FF69C7 100%)" }}
+              className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-gray-300/30"
+              style={{ background: "linear-gradient(135deg, #ADABF2 0%, #7659E2 50%, #ADABF2 100%)" }}
             >
               <div className="mb-3 sm:mb-4">
-                <h3 className="text-black text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
+                <h3 className="text-white text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
-                  className="w-full z-50 bg-white mx-auto rounded-lg flex items-center justify-center shadow-lg"
+                  className="w-full z-50 mx-auto rounded-lg flex items-center justify-center shadow-lg"
+                  style={{ background: "linear-gradient(135deg, #7659E2 0%, #ADABF2 50%, #7659E2 100%)" }}
                 >
                   <div
-                    className="text-black font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight py-1"
-                    style={{ color: "#00C7F9", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
+                    className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight py-1"
+                    style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}
                   >
                     {result}
                   </div>
@@ -305,8 +306,8 @@ export default function LuckyWheelText() {
               </div>
 
               <div className="mb-4 sm:mb-6">
-                <h4 className="text-black text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
-                <p className="text-black text-xs sm:text-sm leading-relaxed px-2">
+                <h4 className="text-white text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
+                <p className="text-white text-xs sm:text-sm leading-relaxed px-2">
                   You've won this amazing prize! Good luck and enjoy your reward.
                 </p>
               </div>
@@ -315,7 +316,7 @@ export default function LuckyWheelText() {
                 onClick={closeResult}
                 className="w-full text-white font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
                 style={{
-                  background: "linear-gradient(135deg, #00C7F9 0%, #FF69C7 100%)",
+                  background: "#6E42DE",
                   color: "#ffffff",
                 }}
               >

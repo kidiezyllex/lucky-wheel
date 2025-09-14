@@ -252,18 +252,18 @@ export default function LuckyWheelIcon() {
 
             {/* Result Card */}
             <div
-              className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-purple-400/30"
-              style={{ background: "linear-gradient(135deg, #D22620 0%, #FFB411 50%, #FEE010 100%)" }}
+              className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-gray-300/30"
+              style={{ background: "linear-gradient(135deg, #FDD2E1 0%, #8CA7FC 50%, #FDD2E1 100%)" }}
             >
               <div className="mb-3 sm:mb-4">
                 <h3 className="text-black text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
                   className="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full flex items-center justify-center shadow-lg"
-                  style={{ background: "linear-gradient(135deg, #FEE010 0%, #FFB411 50%, #FEE010 100%)" }}
+                  style={{ background: "linear-gradient(135deg, #8CA7FC 0%, #FDD2E1 50%, #8CA7FC 100%)" }}
                 >
                   <div
-                    className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight"
-                    style={{ color: "#D22620", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
+                    className="text-black font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight"
+                    style={{ textShadow: "1px 1px 2px rgba(255,255,255,0.8)" }}
                   >
                     <img src={result} alt="Icon" className="w-10 h-10 sm:w-14 sm:h-14 object-contain" />
                   </div>
@@ -279,10 +279,11 @@ export default function LuckyWheelIcon() {
 
               <Button
                 onClick={closeResult}
-                className="w-full text-white font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
+                className="w-full text-black font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
                 style={{
-                  background: "linear-gradient(135deg, #FEE010 0%, #FFB411 100%)",
-                  color: "#D22620",
+                  background: "#94AAFA",
+                  border: "1px solid #E1C8E8",
+                  color: "#000000",
                 }}
               >
                 Continue

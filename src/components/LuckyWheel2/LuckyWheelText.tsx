@@ -287,17 +287,18 @@ export default function LuckyWheelText() {
 
             {/* Result Card */}
             <div
-              className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-purple-400/30"
-              style={{ background: "linear-gradient(135deg, #D22620 0%, #FFB411 50%, #FEE010 100%)" }}
+              className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-gray-300/30"
+              style={{ background: "linear-gradient(135deg, #FDD2E1 0%, #8CA7FC 50%, #FDD2E1 100%)" }}
             >
               <div className="mb-3 sm:mb-4">
                 <h3 className="text-black text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
-                  className="w-full z-50 bg-white mx-auto rounded-lg flex items-center justify-center shadow-lg"
+                  className="w-full z-50 mx-auto rounded-lg flex items-center justify-center shadow-lg"
+                  style={{ background: "linear-gradient(135deg, #8CA7FC 0%, #FDD2E1 50%, #8CA7FC 100%)" }}
                 >
                   <div
-                    className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight py-1"
-                    style={{ color: "#D22620", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
+                    className="text-black font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight py-1"
+                    style={{ textShadow: "1px 1px 2px rgba(255,255,255,0.8)" }}
                   >
                     {result}
                   </div>
@@ -313,10 +314,11 @@ export default function LuckyWheelText() {
 
               <Button
                 onClick={closeResult}
-                className="w-full text-white font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
+                className="w-full text-black font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
                 style={{
-                  background: "linear-gradient(135deg, #FEE010 0%, #FFB411 100%)",
-                  color: "#D22620",
+                  background: "#94AAFA",
+                  border: "1px solid #E1C8E8",
+                  color: "#000000",
                 }}
               >
                 Continue
