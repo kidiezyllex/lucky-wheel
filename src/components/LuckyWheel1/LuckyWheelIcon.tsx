@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Dialog, DialogContent } from "../ui/dialog"
 import { Button } from "../ui/button"
+import ConfigFormIcon from "../ConfigFormIcon"
 
 const textItems = [
   "/icons/icon1.webp",
@@ -14,11 +15,20 @@ const textItems = [
   "/icons/icon7.webp",
   "/icons/icon8.webp",
 ]
+
+interface WheelConfigIcon {
+  wheelSize: number
+}
+
 export default function LuckyWheelIcon() {
   const [isSpinning, setIsSpinning] = useState(false)
   const [rotation, setRotation] = useState(0)
   const [showResult, setShowResult] = useState(false)
   const [result, setResult] = useState("")
+  const [spinDuration, setSpinDuration] = useState(5000)
+  const [config, setConfig] = useState<WheelConfigIcon>({
+    wheelSize: 1.0
+  })
 
   const wheelItems = textItems.slice(0, 8).concat(Array(Math.max(0, 8 - textItems.length)).fill(""))
 
@@ -35,7 +45,7 @@ export default function LuckyWheelIcon() {
     
     const actualIndex = wheelItems.findIndex(item => item === selectedItem)
     
-     const finalRotation = 360 - (actualIndex * 45)
+    const finalRotation = 360 - (actualIndex * 45)
     const totalRotation = rotation + baseRotation + finalRotation
 
     setResult(selectedItem)
@@ -44,6 +54,9 @@ export default function LuckyWheelIcon() {
     setTimeout(() => {
       setRotation(totalRotation)
     }, 10)
+
+    const newSpinDuration = 5000 + Math.random() * 1000 
+    setSpinDuration(newSpinDuration)
 
     setTimeout(() => {
       setIsSpinning(false)
@@ -65,76 +78,92 @@ export default function LuckyWheelIcon() {
       
       setResult(actualResult || "")
       setShowResult(true)
-    }, 5000)
+    }, newSpinDuration)
   }
 
   const closeResult = () => {
     setShowResult(false)
   }
 
+  const handleConfigChange = (newConfig: WheelConfigIcon) => {
+    setConfig(newConfig)
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-80vh">
-      <div className="relative">
-        <div className="relative w-80 h-80">  
-          <div
-            className="w-full h-full"
+    <>
+      <div className="grid grid-cols-2 lg:flex-row items-center justify-center min-h-80vh gap-8 px-4 lg:px-8">
+        <div className="flex justify-center items-center">
+          <div 
+            className="relative w-96 h-96 flex items-center justify-center"
             style={{
-              transform: `rotate(${rotation}deg)`,
+              transform: `scale(${config.wheelSize})`,
               transformOrigin: "center center",
-              transition: isSpinning ? "transform 5s cubic-bezier(0.17, 0.67, 0.12, 0.99)" : "none",
             }}
           >
-            <img src="/images/wheel1.png" alt="Lucky Wheel" className="w-full h-full object-contain bg-transparent" draggable={false} />
-            {Array.from({ length: 8 }).map((_, index) => {
-              const angle = index * 45
-              const radius = 160 
-              const textRadius = 120 // Khoảng cách từ tâm đến text
-              
-              return (
-                <div
-                  key={`line-${index}`}
-                  className="absolute pointer-events-none flex items-center justify-center"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    width: "36px",
-                    height: `${radius}px`,
-                    transformOrigin: "18px 0",
-                    transform: `translate(-18px, 0) rotate(${angle}deg)`,
-                  }}
-                >
-                  <img 
-                    src={wheelItems[index]} 
-                    alt="Icon" 
-                    className="h-full w-auto object-contain" 
-                    
-                  />
-                </div>
-              )
-            })}
+            <img src="/images/wheel1.png" alt="Lucky Wheel" className="absolute w-96 h-96 object-contain bg-transparent z-0" draggable={false} />
+            <div className="relative w-[310px] h-[310px] z-10">
+              <div
+                className="w-full h-full"
+                style={{
+                  transform: `rotate(${rotation}deg)`,
+                  transformOrigin: "center center",
+                  transition: isSpinning ? `transform ${spinDuration}ms cubic-bezier(0.17, 0.67, 0.12, 0.99)` : "none",
+                }}
+              >
+                {Array.from({ length: 8 }).map((_, index) => {
+                  const angle = index * 45
+                  const radius = 160 
+                  
+                  return (
+                    <div
+                      key={`line-${index}`}
+                      className="absolute pointer-events-none flex items-center justify-center"
+                      style={{
+                        left: "50%",
+                        top: "50%",
+                        width: "36px",
+                        height: `${radius}px`,
+                        transformOrigin: "18px 0",
+                        transform: `translate(-18px, 0) rotate(${angle}deg)`,
+                      }}
+                    >
+                      <img 
+                        src={wheelItems[index]} 
+                        alt="Icon" 
+                        className="h-full w-auto object-contain" 
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Arrow Button */}
+            <button
+              onClick={handleSpin}
+              disabled={isSpinning}
+              className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 transition-all duration-200 ${isSpinning
+                ? "scale-95 opacity-50 cursor-not-allowed pointer-events-none"
+                : "hover:scale-110 active:scale-95 cursor-pointer"
+                }`}
+              style={{ zIndex: 10 }}
+            >
+              <img
+                draggable={false}
+                src="/images/arrow1.png"
+                alt="Spin Arrow"
+                className={`w-full h-full object-contain drop-shadow-lg transition-all duration-200 -translate-y-2 ${isSpinning ? "animate-pulse" : ""
+                  }`}
+              />
+            </button>
           </div>
         </div>
-
-        {/* Arrow Button */}
-        <button
-          onClick={handleSpin}
-          disabled={isSpinning}
-          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 transition-all duration-200 ${
-            isSpinning 
-              ? "scale-95 opacity-50 cursor-not-allowed pointer-events-none" 
-              : "hover:scale-110 active:scale-95 cursor-pointer"
-          }`}
-          style={{ zIndex: 10 }}
-        >
-          <img 
-            draggable={false}
-            src="/images/arrow1.png" 
-            alt="Spin Arrow" 
-            className={`w-full h-full object-contain drop-shadow-lg transition-all duration-200 -translate-y-2 ${
-              isSpinning ? "animate-pulse" : ""
-            }`} 
+        <div className="flex items-center justify-center">
+          <ConfigFormIcon
+            onConfigChange={handleConfigChange}
+            initialConfig={config}
           />
-        </button>
+        </div>
       </div>
 
       <Dialog open={showResult} onOpenChange={setShowResult}>
@@ -197,6 +226,6 @@ export default function LuckyWheelIcon() {
           </div>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   )
 }

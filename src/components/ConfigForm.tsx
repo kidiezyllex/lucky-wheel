@@ -111,7 +111,7 @@ export default function ConfigForm({ onConfigChange, initialConfig }: ConfigForm
             onChange={(e) => handleWheelSizeChange(Number(e.target.value))}
             className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer slider"
             style={{
-              background: `linear-gradient(to right, #7500FF 0%, #7500FF ${((wheelSize - 0.5) / (2.0 - 0.5)) * 100}%, rgba(255,255,255,0.2) ${((wheelSize - 0.5) / (2.0 - 0.5)) * 100}%, rgba(255,255,255,0.2) 100%)`
+              background: `linear-gradient(to right, #888B91 0%, #888B91 ${((wheelSize - 0.5) / (2.0 - 0.5)) * 100}%, rgba(255,255,255,0.2) ${((wheelSize - 0.5) / (2.0 - 0.5)) * 100}%, rgba(255,255,255,0.2) 100%)`
             }}
           />
           <div className="flex justify-between text-xs text-white/60 mt-1">
@@ -128,7 +128,7 @@ export default function ConfigForm({ onConfigChange, initialConfig }: ConfigForm
         className="w-full text-white font-semibold py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
         style={{
           background: isValid 
-            ? "linear-gradient(135deg, #7500FF 0%, #5A00CC 100%)" 
+            ? "linear-gradient(135deg, #888B91 0%, #888B91 100%)" 
             : "linear-gradient(135deg, #666 0%, #444 100%)",
         }}
       >
@@ -141,7 +141,7 @@ export default function ConfigForm({ onConfigChange, initialConfig }: ConfigForm
           height: 20px;
           width: 20px;
           border-radius: 50%;
-          background: #7500FF;
+          background: #888B91;
           cursor: pointer;
           border: 2px solid #fff;
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
@@ -151,10 +151,63 @@ export default function ConfigForm({ onConfigChange, initialConfig }: ConfigForm
           height: 20px;
           width: 20px;
           border-radius: 50%;
-          background: #7500FF;
+          background: #888B91;
           cursor: pointer;
           border: 2px solid #fff;
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        /* Custom Scrollbar for textarea */
+        textarea::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+          -webkit-appearance: none;
+          appearance: none;
+        }
+
+        textarea::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.1);
+          -webkit-border-radius: 0;
+          border-radius: 0;
+        }
+
+        textarea::-webkit-scrollbar-thumb {
+          background: #888B91;
+          -webkit-border-radius: 10px;
+          border-radius: 10px;
+          border: none;
+          box-shadow: none;
+          background-clip: content-box;
+          background-image: linear-gradient(#888B91, #888B91);
+          background-size: 8px 30px;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        textarea::-webkit-scrollbar-thumb:hover {
+          background: #888B91;
+        }
+
+        /* Force remove all arrow buttons */
+        textarea::-webkit-scrollbar-button {
+          width: 0;
+          height: 0;
+          display: none;
+          -webkit-appearance: none;
+          appearance: none;
+        }
+
+        textarea::-webkit-scrollbar-button:start:decrement,
+        textarea::-webkit-scrollbar-button:end:increment {
+          width: 0;
+          height: 0;
+          display: none;
+        }
+
+        textarea::-webkit-scrollbar-corner {
+          background: transparent;
+          width: 0;
+          height: 0;
         }
       `}</style>
     </div>
