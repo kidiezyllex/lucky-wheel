@@ -68,13 +68,7 @@ export default function LuckyWheelText() {
 
       Array.from({ length: itemCount }).forEach((_, index) => {
         const sectorStartAngle = index * anglePerItem
-        const sectorEndAngle = (index + 1) * anglePerItem
-        
         const finalSectorStart = (sectorStartAngle + finalAngle) % 360
-        const finalSectorEnd = (sectorEndAngle + finalAngle) % 360
-        
-        const radius = 160
-        
         const startAngle = finalSectorStart
         if (startAngle > highestSector.maxStartAngle) {
           highestSector = { index, maxStartAngle: startAngle }
@@ -138,7 +132,27 @@ export default function LuckyWheelText() {
                   }
 
                   const colors = ["#B366FF", "#FFCC5A", "#7500FF", "#FFB800"]
-                  const colorIndex = index % 4
+                  
+                  // 改进的颜色分配算法：确保相邻扇形不使用相同颜色
+                  let colorIndex = index % 4
+                  
+                  // 检查是否与相邻扇形颜色相同，如果是则调整
+                  if (itemCount > 1) {
+                    const prevIndex = (index - 1 + itemCount) % itemCount
+                    const nextIndex = (index + 1) % itemCount
+                    const prevColorIndex = prevIndex % 4
+                    const nextColorIndex = nextIndex % 4
+    
+                    // 如果与相邻扇形颜色相同，选择不同的颜色
+                    if (colorIndex === prevColorIndex || colorIndex === nextColorIndex) {
+                      for (let i = 0; i < 4; i++) {
+                        if (i !== prevColorIndex && i !== nextColorIndex) {
+                          colorIndex = i
+                          break
+                        }
+                      }
+                    }
+                  }
 
                   return (
                     <path
