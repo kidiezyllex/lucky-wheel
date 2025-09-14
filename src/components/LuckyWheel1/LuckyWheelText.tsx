@@ -106,7 +106,7 @@ export default function LuckyWheelText() {
               transformOrigin: "center center",
             }}
           >
-            <img src="/images/wheel1.webp" alt="Lucky Wheel" className="absolute w-96 h-96 object-contain bg-transparent z-0" draggable={false} />
+            <img src="/images/wheel1.webp" alt="Lucky Wheel" className="absolute select-none w-96 h-96 object-contain bg-transparent z-0" draggable={false} />
             <div className="relative w-[310px] h-[310px] z-10">
               <svg
                 className="w-full h-full"
@@ -194,7 +194,7 @@ export default function LuckyWheelText() {
               onClick={handleSpin}
               disabled={isSpinning}
               className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 transition-all duration-200 ${isSpinning
-                ? "scale-95 opacity-50 cursor-not-allowed pointer-events-none"
+                ? "scale-95 cursor-not-allowed pointer-events-none"
                 : "hover:scale-110 active:scale-95 cursor-pointer"
                 }`}
               style={{ zIndex: 10 }}
@@ -203,8 +203,7 @@ export default function LuckyWheelText() {
                 draggable={false}
                 src="/images/arrow1.webp"
                 alt="Spin Arrow"
-                className={`w-full h-full object-contain drop-shadow-lg transition-all duration-200 -translate-y-2 ${isSpinning ? "animate-pulse" : ""
-                  }`}
+                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-2`}
               />
             </button>
           </div>

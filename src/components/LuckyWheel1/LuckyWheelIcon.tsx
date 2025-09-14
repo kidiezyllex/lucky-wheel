@@ -5,7 +5,7 @@ import { Dialog, DialogContent } from "../ui/dialog"
 import { Button } from "../ui/button"
 import ConfigFormIcon from "../ConfigFormIcon"
 
-const textItems = [
+const iconItems = [
   "/icons/icon1.webp",
   "/icons/icon2.webp",
   "/icons/icon3.webp",
@@ -30,7 +30,7 @@ export default function LuckyWheelIcon() {
     wheelSize: 1.0
   })
 
-  const wheelItems = textItems.slice(0, 8).concat(Array(Math.max(0, 8 - textItems.length)).fill(""))
+  const wheelItems = iconItems.slice(0, 8).concat(Array(Math.max(0, 8 - iconItems.length)).fill(""))
 
   const handleSpin = () => {
     if (isSpinning) return
@@ -100,7 +100,21 @@ export default function LuckyWheelIcon() {
               transformOrigin: "center center",
             }}
           >
-            <img src="/images/wheel1.webp" alt="Lucky Wheel" className="absolute w-96 h-96 object-contain bg-transparent z-0" draggable={false} />
+            <img 
+              src="/images/wheel1.webp" 
+              alt="Lucky Wheel" 
+              className="absolute w-96 h-96 object-contain bg-transparent z-0 select-none" 
+              draggable={false}
+              style={{
+                transform: `rotate(${rotation}deg)`,
+                transformOrigin: "center center",
+                transition: isSpinning ? `transform ${spinDuration}ms cubic-bezier(0.17, 0.67, 0.12, 0.99)` : "none",
+                left: "50%",
+                top: "50%",
+                marginLeft: "-192px",
+                marginTop: "-192px",
+              }}
+            />
             <div className="relative w-[310px] h-[310px] z-10">
               <div
                 className="w-full h-full"
@@ -143,7 +157,7 @@ export default function LuckyWheelIcon() {
               onClick={handleSpin}
               disabled={isSpinning}
               className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 transition-all duration-200 ${isSpinning
-                ? "scale-95 opacity-50 cursor-not-allowed pointer-events-none"
+                ? "scale-95 cursor-not-allowed pointer-events-none"
                 : "hover:scale-110 active:scale-95 cursor-pointer"
                 }`}
               style={{ zIndex: 10 }}
@@ -152,8 +166,7 @@ export default function LuckyWheelIcon() {
                 draggable={false}
                 src="/images/arrow1.webp"
                 alt="Spin Arrow"
-                className={`w-full h-full object-contain drop-shadow-lg transition-all duration-200 -translate-y-2 ${isSpinning ? "animate-pulse" : ""
-                  }`}
+                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-2`}
               />
             </button>
           </div>

@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Dialog, DialogContent } from "../ui/dialog"
 import { Button } from "../ui/button"
 
-const textItems = [
+const iconItems = [
   "/icons/icon1.webp",
   "/icons/icon2.webp",
   "/icons/icon3.webp",
@@ -20,7 +20,7 @@ export default function LuckyWheelIcon() {
   const [showResult, setShowResult] = useState(false)
   const [result, setResult] = useState("")
 
-  const wheelItems = textItems.slice(0, 8).concat(Array(Math.max(0, 8 - textItems.length)).fill(""))
+  const wheelItems = iconItems.slice(0, 8).concat(Array(Math.max(0, 8 - iconItems.length)).fill(""))
 
   const handleSpin = () => {
     if (isSpinning) return
