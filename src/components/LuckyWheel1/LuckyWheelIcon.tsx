@@ -20,6 +20,14 @@ interface WheelConfigIcon {
   wheelSize: number
 }
 
+const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
+  const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0
+  return {
+    x: centerX + (radius * Math.cos(angleInRadians)),
+    y: centerY + (radius * Math.sin(angleInRadians))
+  }
+}
+
 export default function LuckyWheelIcon() {
   const [isSpinning, setIsSpinning] = useState(false)
   const [rotation, setRotation] = useState(0)
@@ -63,18 +71,18 @@ export default function LuckyWheelIcon() {
       
       const finalAngle = totalRotation % 360
       
-      let closestTo180 = { index: 0, angle: 0, distance: 360 }
+      let highestSector = { index: 0, maxStartAngle: -Infinity }
       
       Array.from({ length: 8 }).forEach((_, index) => {
-        const angle = index * 45
-        const finalDivAngle = (angle + finalAngle) % 360
-        const distanceTo180 = Math.abs(finalDivAngle - 180)
-        if (distanceTo180 < closestTo180.distance) {
-          closestTo180 = { index, angle: finalDivAngle, distance: distanceTo180 }
+        const sectorStartAngle = index * 45
+        const finalSectorStart = (sectorStartAngle + finalAngle) % 360
+        const startAngle = finalSectorStart
+        if (startAngle > highestSector.maxStartAngle) {
+          highestSector = { index, maxStartAngle: startAngle }
         }
       })
       
-      const actualResult = wheelItems[closestTo180.index]
+      const actualResult = wheelItems[highestSector.index]
       
       setResult(actualResult || "")
       setShowResult(true)
@@ -106,9 +114,6 @@ export default function LuckyWheelIcon() {
               className="absolute w-80 h-80 sm:w-96 sm:h-96 object-contain bg-transparent z-0 select-none" 
               draggable={false}
               style={{
-                transform: `rotate(${rotation}deg)`,
-                transformOrigin: "center center",
-                transition: isSpinning ? `transform ${spinDuration}ms cubic-bezier(0.17, 0.67, 0.12, 0.99)` : "none",
                 left: "50%",
                 top: "50%",
                 marginLeft: window.innerWidth < 640 ? "-160px" : "-192px",
@@ -116,6 +121,50 @@ export default function LuckyWheelIcon() {
               }}
             />
             <div className="relative w-[260px] h-[260px] sm:w-[310px] sm:h-[310px] z-10">
+              <svg
+                className="w-full h-full absolute"
+                viewBox="0 0 320 320"
+                style={{
+                  transform: `rotate(${rotation}deg)`,
+                  transformOrigin: "center center",
+                  transition: isSpinning ? `transform ${spinDuration}ms cubic-bezier(0.17, 0.67, 0.12, 0.99)` : "none",
+                }}
+              >
+                {/* Background sectors */}
+                {Array.from({ length: 8 }).map((_, index) => {
+                  const startAngle = index * 45
+                  const endAngle = (index + 1) * 45
+                  const radius = 160
+
+                  const createSectorPath = (startAngle: number, endAngle: number, radius: number) => {
+                    const start = polarToCartesian(160, 160, radius, endAngle)
+                    const end = polarToCartesian(160, 160, radius, startAngle)
+                    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1"
+
+                    return [
+                      "M", 160, 160,
+                      "L", start.x, start.y,
+                      "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
+                      "Z"
+                    ].join(" ")
+                  }
+
+                  const colors = ["#B366FF", "#FFCC5A", "#7500FF", "#FFB800"]
+                  const colorIndex = index % 4
+
+                  return (
+                    <path
+                      key={`sector-${index}`}
+                      d={createSectorPath(startAngle, endAngle, radius)}
+                      fill={colors[colorIndex]}
+                      stroke="#3604B7"
+                      strokeWidth="1"
+                      className="pointer-events-none"
+                    />
+                  )
+                })}
+              </svg>
+              
               <div
                 className="w-full h-full"
                 style={{
@@ -125,26 +174,27 @@ export default function LuckyWheelIcon() {
                 }}
               >
                 {Array.from({ length: 8 }).map((_, index) => {
-                  const angle = index * 45
-                  const radius = 160 
+                  const angle = index * 45 + 22.5 // 22.5度是45度的一半，让图标位于扇形中心
+                  const radius = 100 // 调整半径，让图标更靠近中心
+                  
+                  const iconPosition = polarToCartesian(160, 160, radius, angle)
                   
                   return (
                     <div
-                      key={`line-${index}`}
+                      key={`icon-${index}`}
                       className="absolute pointer-events-none flex items-center justify-center"
                       style={{
-                        left: "50%",
-                        top: "50%",
-                        width: "36px",
-                        height: `${radius}px`,
-                        transformOrigin: "18px 0",
-                        transform: `translate(-18px, 0) rotate(${angle}deg)`,
+                        left: `${iconPosition.x}px`,
+                        top: `${iconPosition.y}px`,
+                        width: "32px",
+                        height: "32px",
+                        transform: "translate(-50%, -50%)",
                       }}
                     >
                       <img 
                         src={wheelItems[index]} 
                         alt="Icon" 
-                        className="h-full w-auto object-contain" 
+                        className="w-full h-full object-contain" 
                       />
                     </div>
                   )

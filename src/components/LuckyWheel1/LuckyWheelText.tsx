@@ -100,7 +100,12 @@ export default function LuckyWheelText() {
               transformOrigin: "center center",
             }}
           >
-            <img src="/images/wheel1.webp" alt="Lucky Wheel" className="absolute select-none w-80 h-80 sm:w-96 sm:h-96 object-contain bg-transparent z-0" draggable={false} />
+            <img 
+              src="/images/wheel1.webp" 
+              alt="Lucky Wheel" 
+              className="absolute select-none w-80 h-80 sm:w-96 sm:h-96 object-contain bg-transparent z-0" 
+              draggable={false}
+            />
             <div className="relative w-[260px] h-[260px] sm:w-[310px] sm:h-[310px] z-10">
               <svg
                 className="w-full h-full"
