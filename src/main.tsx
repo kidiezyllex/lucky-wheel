@@ -37,7 +37,7 @@ function App() {
       {renderWheel()}
       
       {/* Navigation Buttons */}
-      <div className="fixed left-[10px] bottom-[10px] flex flex-col gap-2 z-50">
+      {/* <div className="fixed left-[10px] bottom-[10px] flex flex-col gap-4 z-50">
         <button
           onClick={() => setActiveWheel('wheel1')}
           className={`px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-300 ${
@@ -78,7 +78,7 @@ function App() {
         >
           Wheel 4
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }

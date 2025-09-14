@@ -91,10 +91,10 @@ export default function LuckyWheelIcon() {
 
   return (
     <>
-      <div className="grid grid-cols-2 lg:flex-row items-center justify-center min-h-80vh gap-8 px-4 lg:px-8">
-        <div className="flex justify-center items-center">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 items-center justify-center gap-4 lg:gap-8 px-4 lg:px-8 py-2">
+        <div className="flex justify-center items-center order-1 lg:order-1">
           <div 
-            className="relative w-96 h-96 flex items-center justify-center"
+            className="relative w-80 h-80 sm:w-96 sm:h-96 flex items-center justify-center"
             style={{
               transform: `scale(${config.wheelSize})`,
               transformOrigin: "center center",
@@ -103,7 +103,7 @@ export default function LuckyWheelIcon() {
             <img 
               src="/images/wheel1.webp" 
               alt="Lucky Wheel" 
-              className="absolute w-96 h-96 object-contain bg-transparent z-0 select-none" 
+              className="absolute w-80 h-80 sm:w-96 sm:h-96 object-contain bg-transparent z-0 select-none" 
               draggable={false}
               style={{
                 transform: `rotate(${rotation}deg)`,
@@ -111,11 +111,11 @@ export default function LuckyWheelIcon() {
                 transition: isSpinning ? `transform ${spinDuration}ms cubic-bezier(0.17, 0.67, 0.12, 0.99)` : "none",
                 left: "50%",
                 top: "50%",
-                marginLeft: "-192px",
-                marginTop: "-192px",
+                marginLeft: window.innerWidth < 640 ? "-160px" : "-192px",
+                marginTop: window.innerWidth < 640 ? "-160px" : "-192px",
               }}
             />
-            <div className="relative w-[310px] h-[310px] z-10">
+            <div className="relative w-[260px] h-[260px] sm:w-[310px] sm:h-[310px] z-10">
               <div
                 className="w-full h-full"
                 style={{
@@ -156,7 +156,7 @@ export default function LuckyWheelIcon() {
             <button
               onClick={handleSpin}
               disabled={isSpinning}
-              className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-16 h-16 transition-all duration-200 ${isSpinning
+              className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 sm:w-16 sm:h-16 transition-all duration-200 ${isSpinning
                 ? "scale-95 cursor-not-allowed pointer-events-none"
                 : "hover:scale-110 active:scale-95 cursor-pointer"
                 }`}
@@ -166,12 +166,12 @@ export default function LuckyWheelIcon() {
                 draggable={false}
                 src="/images/arrow1.webp"
                 alt="Spin Arrow"
-                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-2`}
+                className={`w-full h-full select-none object-contain drop-shadow-lg transition-all duration-200 -translate-y-1 sm:-translate-y-2`}
               />
             </button>
           </div>
         </div>
-        <div className="flex items-center justify-center">
+        <div className="flex items-center justify-center order-2 lg:order-2 w-full max-w-md mx-auto">
           <ConfigFormIcon
             onConfigChange={handleConfigChange}
             initialConfig={config}
@@ -180,13 +180,13 @@ export default function LuckyWheelIcon() {
       </div>
 
       <Dialog open={showResult} onOpenChange={setShowResult}>
-        <DialogContent className="max-w-sm p-0 border-0 bg-transparent">
+        <DialogContent className="max-w-xs sm:max-w-sm p-0 border-0 bg-transparent mx-4">
           <div className="relative">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               {Array.from({ length: 20 }).map((_, i) => (
                 <div
                   key={i}
-                  className="absolute w-2 h-4 animate-bounce"
+                  className="absolute w-1 h-2 sm:w-2 sm:h-4 animate-bounce"
                   style={{
                     left: `${Math.random() * 100}%`,
                     top: `${Math.random() * 50}%`,
@@ -200,34 +200,34 @@ export default function LuckyWheelIcon() {
 
             {/* Result Card */}
             <div
-              className="rounded-3xl p-6 text-center shadow-2xl border border-purple-400/30"
+              className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center shadow-2xl border border-purple-400/30"
               style={{ background: "linear-gradient(135deg, #7500FF 0%, #5A00CC 50%, #7500FF 100%)" }}
             >
-              <div className="mb-4">
-                <h3 className="text-white text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
+              <div className="mb-3 sm:mb-4">
+                <h3 className="text-white text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
-                  className="w-32 h-32 mx-auto rounded-full flex items-center justify-center shadow-lg"
+                  className="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full flex items-center justify-center shadow-lg"
                   style={{ background: "linear-gradient(135deg, #FFCC59 0%, #FFB800 50%, #FFCC59 100%)" }}
                 >
                   <div
-                    className="text-white font-bold text-lg text-center px-2 leading-tight"
+                    className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight"
                     style={{ color: "#7500FF", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                   >
-                    <img src={result} alt="Icon" className="w-14 h-14 object-contain" />
+                    <img src={result} alt="Icon" className="w-10 h-10 sm:w-14 sm:h-14 object-contain" />
                   </div>
                 </div>
               </div>
 
-              <div className="mb-6">
-                <h4 className="text-white text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
-                <p className="text-purple-100 text-sm leading-relaxed">
+              <div className="mb-4 sm:mb-6">
+                <h4 className="text-white text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
+                <p className="text-purple-100 text-xs sm:text-sm leading-relaxed px-2">
                   You've won this amazing prize! Good luck and enjoy your reward.
                 </p>
               </div>
 
               <Button
                 onClick={closeResult}
-                className="w-full text-white font-semibold py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0"
+                className="w-full text-white font-semibold py-2 sm:py-3 rounded-full uppercase tracking-wider transition-all duration-300 transform hover:scale-105 border-0 text-sm sm:text-base"
                 style={{
                   background: "linear-gradient(135deg, #FFCC59 0%, #FFB800 100%)",
                   color: "#7500FF",
