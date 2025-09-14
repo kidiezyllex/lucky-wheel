@@ -179,6 +179,10 @@ export default function LuckyWheelText() {
                   const formatTextForDisplay = (text: string) => {
                     if (!text) return ""
                     
+                    if (itemCount >= 9 && itemCount <= 25) {
+                      const words = text.split(/\s+/).filter(word => word.length > 0)
+                      return words.slice(0, 4).join(" ")
+                    }
                     const words = text.split(/\s+/).filter(word => word.length > 0)
                     
                     if (words.length <= 4) {
@@ -261,7 +265,7 @@ export default function LuckyWheelText() {
         <DialogContent className="max-w-xs sm:max-w-sm p-0 border-0 bg-transparent mx-4">
           <div className="relative">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {Array.from({ length: 20 }).map((_, i) => (
+              {Array.from({ length: 8 }).map((_, i) => (
                 <div
                   key={i}
                   className="absolute w-1 h-2 sm:w-2 sm:h-4 animate-bounce"
@@ -278,17 +282,16 @@ export default function LuckyWheelText() {
 
             {/* Result Card */}
             <div
-              className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center shadow-2xl border border-purple-400/30"
+              className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-purple-400/30"
               style={{ background: "linear-gradient(135deg, #7500FF 0%, #5A00CC 50%, #7500FF 100%)" }}
             >
               <div className="mb-3 sm:mb-4">
                 <h3 className="text-white text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
-                  className="w-24 h-24 sm:w-32 sm:h-32 mx-auto rounded-full flex items-center justify-center shadow-lg"
-                  style={{ background: "linear-gradient(135deg, #FFCC59 0%, #FFB800 50%, #FFCC59 100%)" }}
+                  className="w-full z-50 bg-white mx-auto rounded-lg flex items-center justify-center shadow-lg"
                 >
                   <div
-                    className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight"
+                    className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight py-1"
                     style={{ color: "#7500FF", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
                   >
                     {result}

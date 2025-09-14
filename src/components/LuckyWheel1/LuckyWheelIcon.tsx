@@ -200,7 +200,7 @@ export default function LuckyWheelIcon() {
 
             {/* Result Card */}
             <div
-              className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 text-center shadow-2xl border border-purple-400/30"
+              className="rounded-2xl sm:rounded-3xl p-4 text-center shadow-2xl border border-purple-400/30"
               style={{ background: "linear-gradient(135deg, #7500FF 0%, #5A00CC 50%, #7500FF 100%)" }}
             >
               <div className="mb-3 sm:mb-4">
