@@ -5,7 +5,7 @@ import LuckyWheelIcon from "./LuckyWheelIcon"
 export default function LuckyWheel1() {
     const [currentWheel, setCurrentWheel] = useState<"text" | "icon">("text")
     return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-black flex flex-col justify-start sm:justify-between py-2 sm:py-10 gap-4 sm:gap-10">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-black flex flex-col justify-start sm:justify-between py-2 sm:py-8 gap-4 sm:gap-8">
             {/* Navigation */}
             <div className="flex gap-1 bg-black/20 mx-auto w-fit backdrop-blur-sm rounded-full p-1">
                 <button

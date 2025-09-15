@@ -29,11 +29,11 @@ export default function ConfigFormIcon({ onConfigChange, initialConfig }: Config
   }
 
   return (
-    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 w-full max-w-sm lg:w-[500px] flex-shrink-0">
-      <h3 className="text-white text-xl font-semibold mb-6 text-center">Cấu hình Lucky Wheel</h3>
+    <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 border border-white/20 w-full max-w-sm lg:w-[500px] flex-shrink-0">
+      <h3 className="text-white text-xl font-semibold mb-4 text-center">Cấu hình Lucky Wheel</h3>
       
       {/* Wheel Size Slider */}
-      <div className="mb-6">
+      <div className="mb-4">
         <label className="block text-white text-sm font-medium mb-2">
           Kích thước Wheel: {wheelSize.toFixed(1)}x
         </label>

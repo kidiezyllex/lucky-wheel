@@ -99,7 +99,7 @@ export default function LuckyWheelIcon() {
 
   return (
     <>
-      <div className="flex flex-col lg:grid lg:grid-cols-2 items-center justify-center gap-4 lg:gap-8 px-4 lg:px-8 py-2">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 items-center justify-center gap-4 lg:gap-8 px-4 lg:px-8">
         <div className="flex justify-center items-center order-1 lg:order-1">
           <div 
             className="relative w-80 h-80 sm:w-96 sm:h-96 flex items-center justify-center"
@@ -116,7 +116,7 @@ export default function LuckyWheelIcon() {
               style={{
                 left: "50%",
                 top: "50%",
-                marginLeft: window.innerWidth < 640 ? "-160px" : "-192px",
+                transform: "translateX(-50%)",
                 marginTop: window.innerWidth < 640 ? "-160px" : "-192px",
               }}
             />
@@ -184,8 +184,8 @@ export default function LuckyWheelIcon() {
                       key={`icon-${index}`}
                       className="absolute pointer-events-none flex items-center justify-center"
                       style={{
-                        left: `${iconPosition.x}px`,
-                        top: `${iconPosition.y}px`,
+                        left: `${(iconPosition.x / 320) * 100}%`,
+                        top: `${(iconPosition.y / 320) * 100}%`,
                         width: "32px",
                         height: "32px",
                         transform: "translate(-50%, -50%)",
@@ -230,7 +230,7 @@ export default function LuckyWheelIcon() {
       </div>
 
       <Dialog open={showResult} onOpenChange={setShowResult}>
-        <DialogContent className="max-w-xs sm:max-w-sm p-0 border-0 bg-transparent mx-4">
+        <DialogContent className="max-w-xs sm:max-w-sm p-0 border-0 bg-transparent mx-auto">
           <div className="relative">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               {Array.from({ length: 20 }).map((_, i) => (
@@ -268,7 +268,7 @@ export default function LuckyWheelIcon() {
                 </div>
               </div>
 
-              <div className="mb-4 sm:mb-6">
+              <div className="mb-4 sm:mb-4">
                 <h4 className="text-white text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
                 <p className="text-purple-100 text-xs sm:text-sm leading-relaxed px-2">
                   You've won this amazing prize! Good luck and enjoy your reward.

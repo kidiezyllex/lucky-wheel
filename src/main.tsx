@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import LuckyWheel1 from './components/LuckyWheel1'
@@ -16,6 +16,29 @@ if (!rootElement) {
 
 function App() {
   const [activeWheel, setActiveWheel] = useState<'wheel1' | 'wheel2' | 'wheel3' | 'wheel4'>('wheel1')
+
+  // Reload the page when crossing between mobile and desktop viewports
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767.98px)')
+
+    const handleChange = () => {
+      window.location.reload()
+    }
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', handleChange)
+    } else if (typeof mediaQuery.addListener === 'function') {
+      mediaQuery.addListener(handleChange)
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === 'function') {
+        mediaQuery.removeEventListener('change', handleChange)
+      } else if (typeof mediaQuery.removeListener === 'function') {
+        mediaQuery.removeListener(handleChange)
+      }
+    }
+  }, [])
 
   const renderWheel = () => {
     switch (activeWheel) {

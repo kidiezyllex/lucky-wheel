@@ -8,6 +8,7 @@ import ConfigForm from "../ConfigForm"
 interface WheelConfig {
   items: string[]
   wheelSize: number 
+  selectedIndex?: number | null
 }
 
 const polarToCartesian = (centerX: number, centerY: number, radius: number, angleInDegrees: number) => {
@@ -40,16 +41,28 @@ export default function LuckyWheelText() {
 
     const baseRotation = 1800 + Math.random() * 1800
 
-    const validItems = wheelItems.filter(item => item && item.trim() !== "")
-    const randomIndex = Math.floor(Math.random() * validItems.length)
-    const selectedItem = validItems[randomIndex] || "Default Item"
+    const forcedIndex = typeof config.selectedIndex === 'number' && config.selectedIndex >= 0 && config.selectedIndex < itemCount
+      ? config.selectedIndex
+      : null
 
-    const actualIndex = wheelItems.findIndex(item => item === selectedItem)
+    const validIndices = wheelItems
+      .map((text, index) => ({ text, index }))
+      .filter(({ text }) => text && text.trim() !== "")
+      .map(({ index }) => index)
 
-    const finalRotation = 360 - (actualIndex * anglePerItem)
-    const totalRotation = rotation + baseRotation + finalRotation
+    const chosenIndex: number =
+      forcedIndex ?? (validIndices.length > 0
+        ? validIndices[Math.floor(Math.random() * validIndices.length)]!
+        : 0)
 
-    setResult(selectedItem)
+    const selectedItem = wheelItems[chosenIndex] || "Default Item"
+    const arrowNudgeDeg = Math.min(5, Math.max(1, anglePerItem * 0.05))
+    const targetFinalAngle = (360 - ((chosenIndex * anglePerItem) + arrowNudgeDeg)) % 360
+    const currentOffset = (rotation + baseRotation) % 360
+    const correction = (targetFinalAngle - currentOffset + 360) % 360
+    const totalRotation = rotation + baseRotation + correction
+
+    setResult(selectedItem || "")
 
     setRotation(0)
     setTimeout(() => {
@@ -62,21 +75,25 @@ export default function LuckyWheelText() {
     setTimeout(() => {
       setIsSpinning(false)
 
-      const finalAngle = totalRotation % 360
+      if (forcedIndex !== null) {
+        setResult(wheelItems[chosenIndex] || "")
+      } else {
+        const finalAngle = totalRotation % 360
 
-      let highestSector = { index: 0, maxStartAngle: -Infinity }
+        let highestSector = { index: 0, maxStartAngle: -Infinity }
 
-      Array.from({ length: itemCount }).forEach((_, index) => {
-        const sectorStartAngle = index * anglePerItem
-        const finalSectorStart = (sectorStartAngle + finalAngle) % 360
-        const startAngle = finalSectorStart
-        if (startAngle > highestSector.maxStartAngle) {
-          highestSector = { index, maxStartAngle: startAngle }
-        }
-      })
+        Array.from({ length: itemCount }).forEach((_, index) => {
+          const sectorStartAngle = index * anglePerItem
+          const finalSectorStart = (sectorStartAngle + finalAngle) % 360
+          const startAngle = finalSectorStart
+          if (startAngle > highestSector.maxStartAngle) {
+            highestSector = { index, maxStartAngle: startAngle }
+          }
+        })
 
-      const actualResult = wheelItems[highestSector.index]
-      setResult(actualResult || "")
+        const actualResult = wheelItems[highestSector.index]
+        setResult(actualResult || "")
+      }
       setShowResult(true)
     }, newSpinDuration)
   }
@@ -91,7 +108,7 @@ export default function LuckyWheelText() {
 
   return (
     <>
-      <div className="flex flex-col lg:grid lg:grid-cols-2 items-center justify-center gap-4 lg:gap-8 px-4 lg:px-8 py-4">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 items-center justify-center gap-4 lg:gap-8 px-4 lg:px-8">
         <div className="flex justify-center items-center order-1 lg:order-1">
           <div 
             className="relative w-80 h-80 sm:w-96 sm:h-96 flex items-center justify-center"
@@ -304,7 +321,7 @@ export default function LuckyWheelText() {
                 </div>
               </div>
 
-              <div className="mb-4 sm:mb-6">
+              <div className="mb-4 sm:mb-4">
                 <h4 className="text-white text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
                 <p className="text-purple-100 text-xs sm:text-sm leading-relaxed px-2">
                   You've won this amazing prize! Good luck and enjoy your reward.

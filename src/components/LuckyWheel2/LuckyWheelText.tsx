@@ -91,7 +91,7 @@ export default function LuckyWheelText() {
 
   return (
     <>
-      <div className="flex flex-col lg:grid lg:grid-cols-2 items-center justify-center gap-4 lg:gap-8 px-4 lg:px-8 py-4">
+      <div className="flex flex-col lg:grid lg:grid-cols-2 items-center justify-center gap-4 lg:gap-8 px-4 lg:px-8">
         <div className="flex justify-center items-center order-1 lg:order-1">
           <div 
             className="relative w-80 h-80 sm:w-96 sm:h-96 flex items-center justify-center"
@@ -305,7 +305,7 @@ export default function LuckyWheelText() {
                 </div>
               </div>
 
-              <div className="mb-4 sm:mb-6">
+              <div className="mb-4 sm:mb-4">
                 <h4 className="text-black text-base sm:text-lg font-semibold uppercase tracking-wide mb-2">Congratulations!</h4>
                 <p className="text-black text-xs sm:text-sm leading-relaxed px-2">
                   You've won this amazing prize! Good luck and enjoy your reward.
