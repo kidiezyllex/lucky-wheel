@@ -17,7 +17,6 @@ if (!rootElement) {
 function App() {
   const [activeWheel, setActiveWheel] = useState<'wheel1' | 'wheel2' | 'wheel3' | 'wheel4'>('wheel1')
 
-  // Reload the page when crossing between mobile and desktop viewports
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 767.98px)')
 

@@ -234,7 +234,7 @@ export default function LuckyWheelIcon() {
       </div>
 
       <Dialog open={showResult} onOpenChange={setShowResult}>
-        <DialogContent className="max-w-xs sm:max-w-sm p-0 border-0 bg-transparent mx-4">
+        <DialogContent className="max-w-xs sm:max-w-sm p-0 border-0 bg-transparent mx-auto">
           <div className="relative">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               {Array.from({ length: 20 }).map((_, i) => (

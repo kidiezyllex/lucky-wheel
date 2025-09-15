@@ -40,14 +40,22 @@ export default function LuckyWheelText() {
 
     const baseRotation = 1800 + Math.random() * 1800
 
-    const validItems = wheelItems.filter(item => item && item.trim() !== "")
-    const randomIndex = Math.floor(Math.random() * validItems.length)
-    const selectedItem = validItems[randomIndex] || "Default Item"
+    const validIndices = wheelItems
+      .map((text, index) => ({ text, index }))
+      .filter(({ text }) => text && text.trim() !== "")
+      .map(({ index }) => index)
 
-    const actualIndex = wheelItems.findIndex(item => item === selectedItem)
+    const chosenIndex: number = validIndices.length > 0
+      ? validIndices[Math.floor(Math.random() * validIndices.length)]!
+      : 0
 
-    const finalRotation = 360 - (actualIndex * anglePerItem)
-    const totalRotation = rotation + baseRotation + finalRotation
+    const selectedItem = wheelItems[chosenIndex] || "Default Item"
+
+    const arrowNudgeDeg = Math.min(5, Math.max(3, anglePerItem * 0.05))
+    const targetFinalAngle = (360 - ((chosenIndex * anglePerItem) + arrowNudgeDeg)) % 360
+    const currentOffset = (rotation + baseRotation) % 360
+    const correction = (targetFinalAngle - currentOffset + 360) % 360
+    const totalRotation = rotation + baseRotation + correction
 
     setResult(selectedItem)
 
@@ -62,21 +70,7 @@ export default function LuckyWheelText() {
     setTimeout(() => {
       setIsSpinning(false)
 
-      const finalAngle = totalRotation % 360
-
-      let highestSector = { index: 0, maxStartAngle: -Infinity }
-
-      Array.from({ length: itemCount }).forEach((_, index) => {
-        const sectorStartAngle = index * anglePerItem
-        const finalSectorStart = (sectorStartAngle + finalAngle) % 360
-        const startAngle = finalSectorStart
-        if (startAngle > highestSector.maxStartAngle) {
-          highestSector = { index, maxStartAngle: startAngle }
-        }
-      })
-
-      const actualResult = wheelItems[highestSector.index]
-      setResult(actualResult || "")
+      setResult(wheelItems[chosenIndex] || "")
       setShowResult(true)
     }, newSpinDuration)
   }
@@ -170,7 +164,7 @@ export default function LuckyWheelText() {
                 {/* Text labels */}
                 {Array.from({ length: itemCount }).map((_, index) => {
                   const angle = index * anglePerItem + anglePerItem / 2
-                  const radius = 100
+                  const radius = 95
                   const textPosition = polarToCartesian(160, 160, radius, angle)
 
                   let textRotation = angle - 90
@@ -220,7 +214,6 @@ export default function LuckyWheelText() {
                         className="text-black font-bold text-xs sm:text-sm pointer-events-none select-none"
                         style={{
                           fontSize: window.innerWidth < 640 ? '9px' : '11px',
-                          textShadow: '1px 1px 2px rgba(255,255,255,0.8)',
                           fill: 'black'
                         }}
                       >
@@ -267,7 +260,7 @@ export default function LuckyWheelText() {
         </div>
       </div>
       <Dialog open={showResult} onOpenChange={setShowResult}>
-        <DialogContent className="max-w-xs sm:max-w-sm p-0 border-0 bg-transparent mx-4">
+        <DialogContent className="max-w-xs sm:max-w-sm p-0 border-0 bg-transparent mx-auto">
           <div className="relative">
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               {Array.from({ length: 8 }).map((_, i) => (
@@ -293,7 +286,7 @@ export default function LuckyWheelText() {
               <div className="mb-3 sm:mb-4">
                 <h3 className="text-black text-lg sm:text-xl font-semibold uppercase tracking-wider mb-2">Your Result</h3>
                 <div
-                  className="w-full z-50 bg-white mx-auto rounded-lg flex items-center justify-center shadow-lg"
+                  className="w-full z-50 bg-[#FED5A1] mx-auto rounded-lg flex items-center justify-center shadow-lg"
                 >
                   <div
                     className="text-white font-bold text-sm sm:text-lg text-center px-1 sm:px-2 leading-tight py-1"

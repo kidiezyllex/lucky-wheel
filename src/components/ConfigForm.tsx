@@ -119,7 +119,6 @@ export default function ConfigForm({ onConfigChange, initialConfig }: ConfigForm
     }, 0)
   }, [textInput, wheelSize, validateAndProcessInput, onConfigChange])
 
-  // 使用 useMemo 优化计算密集的操作
   const maxIndex = useMemo(() => {
     const items = validateAndProcessInput(textInput)
     return items ? items.length - 1 : 0
